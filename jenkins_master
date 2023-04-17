@@ -27,7 +27,6 @@ pipeline {
                 }
             }
         }
-        
         stage('Trigger slave') {
             steps {
                 build job: 'slave'
