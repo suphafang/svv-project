@@ -1,0 +1,105 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  Customer
+  Restaurant
+}
+
+enum Category {
+  Food
+  Drink
+  Snack
+}
+
+enum OrderStatus {
+  WaitingForPayment
+  Preparing
+  WatingForReceiver
+  Completed
+}
+
+enum PaymentType {
+  Cash
+  PaymentGateway
+}
+
+enum PaymentStatus {
+  Waiting
+  Paid
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String
+  surname   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  role       UserRole    @default(Customer)
+  Restaurant Restaurant?
+  Order      Order[]
+}
+
+model Restaurant {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  isOpen    Boolean  @default(false)
+  userId    Int      @unique
+  cashFlow  Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  User  User    @relation(fields: [userId], references: [id])
+  Menu  Menu[]
+  Order Order[]
+}
+
+model Menu {
+  id           Int      @id @default(autoincrement())
+  restaurantId Int
+  name         String
+  category     Category
+  price        Float
+  amount       Int
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now())
+
+  Restaurant Restaurant @relation(fields: [restaurantId], references: [id])
+}
+
+model Order {
+  id           Int         @id @default(autoincrement())
+  userId       Int
+  restaurantId Int
+  amount       Int
+  status       OrderStatus
+  paymentType  PaymentType
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @default(now())
+
+  User       User       @relation(fields: [userId], references: [id])
+  Restaurant Restaurant @relation(fields: [restaurantId], references: [id])
+  Payment    Payment?
+}
+
+model Payment {
+  id        Int           @id @default(autoincrement())
+  orderId   Int           @unique
+  status    PaymentStatus @default(Waiting)
+  amount    Float
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @default(now())
+
+  Order Order @relation(fields: [orderId], references: [id])
+}
