@@ -1,13 +1,17 @@
 import { Dialog } from "@headlessui/react";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
-import { IoClose } from "react-icons/io5";
+import { IoArrowBack, IoClose } from "react-icons/io5";
 
 const RestaurantPage = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+
   return (
     <>
+      <span onClick={() => router.push('/')} className="absolute bg-white w-8 h-8 top-4 left-4 z-50 grid place-items-center rounded-full shadow-lg"><IoArrowBack className="text-xl" /></span>
       <div className="pb-24">
         <div>
           <div className="aspect-w-16 aspect-h-9">
@@ -41,6 +45,15 @@ const RestaurantPage = () => {
           </div>
         </div>
       </div>
+      <div className="p-4 pb-8 shadow-lg bg-white absolute bottom-0 inset-x-0">
+        <button className="bg-orange-500 text-white w-full p-2 px-3 rounded-lg font-semibold flex justify-between">
+          <div>
+            <span>กระดาษจด - </span>
+            <span className="font-normal">1 รายการ</span>
+          </div>
+          <span>฿45</span>
+        </button>
+      </div>
       <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
         <Dialog.Panel>
           <div className="fixed inset-0 bg-neutral-100 flex flex-col">
@@ -60,7 +73,7 @@ const RestaurantPage = () => {
             <div className="p-4 bg-white mb-2">
               <h1 className="font-semibold flex items-center mb-4">ข้อความถึงครัว<span className="ml-2 text-xs font-light text-neutral-500">หากมี</span></h1>
               <div>
-                <textarea className="border rounded-lg w-full p-2 px-3" placeholder="บอกความต้องการของคุณ"></textarea>
+                <textarea className="border rounded-lg w-full p-2 px-3 outline-none focus:ring ring-orange-500/50" placeholder="บอกความต้องการของคุณ"></textarea>
               </div>
             </div>
             <div className="p-4 shadow-lg bg-white absolute bottom-0 inset-x-0">
