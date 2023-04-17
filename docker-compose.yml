@@ -4,7 +4,7 @@ services:
     build: ./api
     image: nattapat34/fast-food-backend:lastest
     ports:
-      - "3001:3000"
+      - "4000:3000"
     container_name: fast-api_container
   frontend:
     build: ./app
