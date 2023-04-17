@@ -4,11 +4,11 @@ services:
     build: .
     image: nattapat34/fast-food-backend:lastest
     ports:
-      - "8082:3001"
+      - "3001:3000"
     container_name: fast-api_container
   frontend:
     build: ./frontend
     image: nattapat34/fast-food-frontend:latest
     ports:
-      - "8081:3001"
+      - "3000:3000"
     container_name: frontend_container
