@@ -1,13 +1,13 @@
 version: "3"
 services:
   backend:
-    build: .
+    build: ./api
     image: nattapat34/fast-food-backend:lastest
     ports:
       - "3001:3000"
     container_name: fast-api_container
   frontend:
-    build: ./frontend
+    build: ./app
     image: nattapat34/fast-food-frontend:latest
     ports:
       - "3000:3000"
