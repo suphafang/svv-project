@@ -12,7 +12,6 @@ pipeline {
                 sh 'docker-compose -f ${DOCKER_COMPOSE_FILE} down --remove-orphans'
             }
         }
-
         stage('Build and Run Containers') {
             steps {
                 echo 'Build and Run the Containers using Docker Compose'
