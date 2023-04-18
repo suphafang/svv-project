@@ -40,20 +40,20 @@ services:
       - ./mysql:/var/lib/mysql
     networks:
       - svv  
-  # webserver:
-  #     image: nginx
-  #     container_name: webserver
-  #     build:
-  #       context: .
-  #       dockerfile: ./Dockerfile
-  #     ports:
-  #       - 8081:8081
-  #     restart: always
-  #     networks:
-  #       - svv
-  #     depends_on:
-  #       - frontend
-  #       - backend
+  webserver:
+      image: nattapat34/nginx
+      container_name: webserver
+      build:
+        context: .
+        dockerfile: ./Dockerfile
+      ports:
+        - 8081:8081
+      restart: always
+      networks:
+        - svv
+      depends_on:
+        - frontend
+        - backend
 networks:
   svv:
     driver: bridge
