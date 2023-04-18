@@ -28,8 +28,8 @@ services:
       networks:
         - svv
       depends_on:
-        - api_container
-        - app_container
+        - frontend
+        - backend
 networks:
   svv:
     driver: bridge
