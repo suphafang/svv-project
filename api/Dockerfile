@@ -8,6 +8,8 @@ RUN npm install
 
 COPY . .
 
+RUN npm prisma generate
+
 RUN npm run build
 
 EXPOSE 4000
