@@ -26,9 +26,9 @@ const HomePage = (props: Props) => {
           </div>
           <div>
             {
-              props.restaurants.length > 0 && props.restaurants.map((restaurant) => {
+              props.restaurants.length > 0 && props.restaurants.map((restaurant, index) => {
                 return (
-                  <Link href={`/restaurant/${restaurant.id}`}>
+                  <Link href={`/restaurant/${restaurant.id}`} key={index}>
                     <div className="p-4 bg-white flex gap-4 border-b border-b-neutral-200">
                       <div className="w-24">
                         <div className="aspect-w-1 aspect-h-1">

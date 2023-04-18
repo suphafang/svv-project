@@ -51,7 +51,7 @@ const RestaurantPage = (props: Props) => {
     });
 
     setCompleted(true);
-    // deleteCookie('order');
+    deleteCookie('order');
   }, []);
 
   if (completed) {
