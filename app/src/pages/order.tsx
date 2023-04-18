@@ -44,11 +44,11 @@ const RestaurantPage = (props: Props) => {
   const onSendOrder = useCallback(async () => {
     const email = getCookie('user');
 
-    const {data: res} = await axios.post(`${process.env.API_URL}/order`, orderList, {
-      headers: {
-        Authorization: `${email}`
-      }
-    });
+    // const {data: res} = await axios.post(`${process.env.API_URL}/order`, orderList, {
+    //   headers: {
+    //     Authorization: `${email}`
+    //   }
+    // });
 
     setCompleted(true);
     deleteCookie('order');
