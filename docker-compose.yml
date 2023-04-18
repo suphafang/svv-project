@@ -8,7 +8,7 @@ services:
     networks:
       - svv
     container_name: api_container
-     healthcheck:
+    healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:4000"]
       interval: 30s
       timeout: 10s
