@@ -5,6 +5,8 @@ services:
     image: nattapat34/fast-food-api:lastest
     ports:
       - "4000:4000"
+    networks:
+      - svv
     container_name: api_container
   frontend:
     build: ./app
@@ -12,14 +14,22 @@ services:
     ports:
       - "3000:3000"
     container_name: app_container
-  nginx:
-    image: nginx:latest
-    container_name: nginx_container
-    restart: always
+    networks:
+      - svv
+webserver:
+    image: nginx
+    container_name: webserver
+    build:
+      context: .
+      dockerfile: ./Dockerfile
     ports:
-      - "81:81"
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - 80:80
+    restart: always
+    networks:
+      - svv
     depends_on:
-      - frontend
-      - backend
+      - api_container
+      - app_container
+networks:
+  svv:
+    driver: bridge
