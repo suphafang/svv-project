@@ -1,8 +1,14 @@
+import axios from "axios";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Link from "next/link";
 import { IoSearch } from "react-icons/io5";
+import { RestaurantInterface } from "../../interface/restaurant.interface";
 
-const HomePage = () => {
+interface Props {
+  restaurants: RestaurantInterface[]
+}
+
+const HomePage = (props: Props) => {
   return (
     <>
       <div>
@@ -19,32 +25,25 @@ const HomePage = () => {
             <h1 className="text-lg font-semibold">ครัวที่กำลังเปิดอยู่ 🍴</h1>
           </div>
           <div>
-            <Link href={'/restaurant/123'}>
-              <div className="p-4 bg-white flex gap-4 border-b border-b-neutral-200">
-                <div className="w-24">
-                  <div className="aspect-w-1 aspect-h-1">
-                    <img src="https://rachelgouk.com/wp-content/uploads/2021/12/eldivino-thai-restaurant-shanghai-29.jpg" alt="" className="object-cover rounded-lg" />
-                  </div>
-                </div>
-                <div>
-                  <h1 className="font-semibold">ร้านพี่ช้าง</h1>
-                  <p className="text-xs text-neutral-500">โรงอาหารคณะไอที</p>
-                </div>
-              </div>
-            </Link>
-            <Link href={'/restaurant/123'}>
-              <div className="p-4 bg-white flex gap-4">
-                <div className="w-24">
-                  <div className="aspect-w-1 aspect-h-1">
-                    <img src="https://rachelgouk.com/wp-content/uploads/2021/12/eldivino-thai-restaurant-shanghai-29.jpg" alt="" className="object-cover rounded-lg" />
-                  </div>
-                </div>
-                <div>
-                  <h1 className="font-semibold">ร้านพี่ช้าง</h1>
-                  <p className="text-xs text-neutral-500">โรงอาหารคณะไอที</p>
-                </div>
-              </div>
-            </Link>
+            {
+              props.restaurants.length > 0 && props.restaurants.map((restaurant) => {
+                return (
+                  <Link href={`/restaurant/${restaurant.id}`}>
+                    <div className="p-4 bg-white flex gap-4 border-b border-b-neutral-200">
+                      <div className="w-24">
+                        <div className="aspect-w-1 aspect-h-1">
+                          <img src="https://rachelgouk.com/wp-content/uploads/2021/12/eldivino-thai-restaurant-shanghai-29.jpg" alt="" className="object-cover rounded-lg" />
+                        </div>
+                      </div>
+                      <div>
+                        <h1 className="font-semibold">{restaurant.name}</h1>
+                        <p className="text-xs text-neutral-500">{restaurant.location}</p>
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })
+            }
             <div className="p-4">
               <p className="text-center text-neutral-500">เลื่อนลงมาสุดแล้ว</p>
             </div>
@@ -56,8 +55,14 @@ const HomePage = () => {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
+  const { data: restaurants }: {
+    data: RestaurantInterface[]
+  } = await axios.get(`${process.env.API_URL}/restaurant`);
+
   return {
-    props: {}
+    props: {
+      restaurants,
+    }
   }
 }
 

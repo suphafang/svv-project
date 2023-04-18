@@ -1,3 +1,4 @@
+import { setCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
 
@@ -5,6 +6,7 @@ const SignInPage = () => {
   const router = useRouter();
 
   const onSingin = useCallback(async () => {
+    setCookie('user', 'suphachai.fang@gmail.com');
     router.push('/');
   }, []);
 
