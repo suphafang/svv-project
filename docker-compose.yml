@@ -34,7 +34,7 @@ services:
       context: .
       dockerfile: Dockerfile.mysql
     ports:
-      - '3300:3306'
+      - '3306:3306'
     restart: always
     volumes:
       - ./mysql:/var/lib/mysql
