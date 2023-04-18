@@ -8,6 +8,11 @@ services:
     networks:
       - svv
     container_name: api_container
+     healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
   frontend:
     build: ./app
     image: nattapat34/fast-food-app:lastest
@@ -16,6 +21,11 @@ services:
     container_name: app_container
     networks:
       - svv
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
   # webserver:
   #     image: nginx
   #     container_name: webserver
