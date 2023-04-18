@@ -28,7 +28,7 @@ services:
       retries: 3
 
   db:
-    image: mysql
+    image: nattapat34/mysql
     container_name: mysql
     build:
       context: .
