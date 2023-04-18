@@ -16,20 +16,20 @@ services:
     container_name: app_container
     networks:
       - svv
-webserver:
-    image: nginx
-    container_name: webserver
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-    ports:
-      - 80:80
-    restart: always
-    networks:
-      - svv
-    depends_on:
-      - api_container
-      - app_container
+  webserver:
+      image: nginx
+      container_name: webserver
+      build:
+        context: .
+        dockerfile: ./Dockerfile
+      ports:
+        - 80:80
+      restart: always
+      networks:
+        - svv
+      depends_on:
+        - api_container
+        - app_container
 networks:
   svv:
     driver: bridge
